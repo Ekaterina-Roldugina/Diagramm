@@ -1,0 +1,93 @@
+CREATE TABLE artifacts(
+	id INTEGER PRIMARY KEY,
+	name VARCHAR(100) NOT NULL,
+	type VARCHAR(100) NOT NULL,
+	location VARCHAR(200) NOT NULL,
+	description VARCHAR(500) NULL,
+	date DATETIME NOT NULL
+)
+
+
+CREATE TABLE fauna_and_flora(
+	id INTEGER PRIMARY KEY,
+	name VARCHAR(75) NOT NULL,
+	type VARCHAR(100) NOT NULL,
+	description VARCHAR(500) NULL,
+	location VARCHAR(200) NOT NULL,
+	date DATETIME NOT NULL
+)
+
+
+CREATE TABLE cultures(
+	id INTEGER PRIMARY KEY,
+	name VARCHAR(100) NOT NULL,
+	description VARCHAR(500) NULL,
+	time_period DATETIME NOT NULL,
+)
+
+
+CREATE TABLE objects(
+	id INTEGER PRIMARY KEY,
+	name_object VARCHAR(100) NOT NULL,
+	location VARCHAR(200) NOT NULL,
+	description VARCHAR(500) NULL,
+	object_type VARCHAR(100) NULL
+)
+
+
+CREATE TABLE publications(
+	publications_id INTEGER PRIMARY KEY,
+	hesding VARCHAR(150) NOT NULL,
+	avtor VARCHAR(100) NOT NULL,
+	date DATETIME nOT NULL,
+	description VARCHAR(500) NULL
+)
+
+
+CREATE TABLE archaeologists(
+	id INTEGER PRIMARY KEY,
+	name VARCHAR(100) NOT NULL,
+	full_name VARCHAR(100) NOT NULL,
+	contact_information VARCHAR(200) NOT NULL,
+	specialization VARCHAR(100) NOT NULL
+)
+
+
+CREATE TABLE excavations(
+	id INTEGER PRIMARY KEY,
+	name VARCHAR(100) NOT NULL,
+	location VARCHAR(200) NOT NULL,
+	date_in DATETIME NOT NULL,
+date_out DATETIME NOT NULL,
+comments VARCHAR(500) NULL
+)
+
+
+CREATE TABLE pictures(
+	picture_id INTEGER PRIMARY KEY,
+	FOREIGN KEY (artifact_id) REFERENCES artifacts(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+	comments VARCHAR(500) NULL
+)		
+
+
+CREATE TABLE finds(
+	id INTEGER PRIMARY KEY,
+	FOREIGN KEY (artifact_id) REFERENCES artifacts(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+	FOREIGN KEY (cultures_id) REFERENCES cultures(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+	FOREIGN KEY (object_id) REFERENCES objects(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+	FOREIGN KEY (records_id) REFERENCES fauna_and_flora(id) ON DELETE NO ACTION ON UPDATE NO ACTION
+	date DATETIME NOT NULL,
+	description VARCHAR(500) NULL
+)			
+
+
+CREATE TABLE investigations(
+	id INTEGER PRIMARY KEY,
+	FOREIGN KEY (archeologist_id) REFERENCES archeologists(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+	FOREIGN KEY (excavation_id) REFERENCES excavatios(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+	date_in DATETIME NOT NULL,
+date_out DATETIME NOT NULL,
+	results VARCHAR(100) NOT NULL
+);
+
+
